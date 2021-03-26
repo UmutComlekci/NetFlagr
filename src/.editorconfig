@@ -1,0 +1,10 @@
+﻿[*.cs]
+
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1822.severity = none
+
+# IDE0063: Use simple 'using' statement
+csharp_prefer_simple_using_statement = false:suggestion
+
+# IDE0034: Simplify 'default' expression
+csharp_prefer_simple_default_expression = false:suggestion

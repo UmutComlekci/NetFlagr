@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>NetFlagr</AssemblyName>
+    <TargetFramework>net5.0</TargetFramework>
+    <Title>NetFlagr</Title>
+    <PackageTags>flagr feature toggle</PackageTags>
+    <Description>.Net client for Flagr. It is a feature flagging, A/B testing and dynamic configuration microservice</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="NetFlagr.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include=".editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Pathoschild.Http.FluentClient" Version="4.1.0" />
+  </ItemGroup>
+
+</Project>
