@@ -6,6 +6,7 @@
     <Title>NetFlagr</Title>
     <PackageTags>flagr feature toggle</PackageTags>
     <Description>.Net client for Flagr. It is a feature flagging, A/B testing and dynamic configuration microservice</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
