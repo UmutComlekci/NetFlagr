@@ -8,11 +8,11 @@ namespace NetFlagr
     /// </summary>
     internal class ExportApiService : IExportApiService
     {
-        private readonly NetFlagrApiClient _apiClient;
+        private readonly NetFlagrHttpClient _httpClient;
 
-        public ExportApiService(NetFlagrApiClient apiClient)
+        public ExportApiService(NetFlagrHttpClient httpClient)
         {
-            _apiClient = apiClient;
+            _httpClient = httpClient;
         }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse (object)</returns>
         public async Task<ApiResponse<object>> GetExportEvalCacheJSONAsync()
         {
-            return await _apiClient.GetAsync("export/eval_cache/json").AsApiResponse<object>();
+            return await _httpClient.GetAsync("export/eval_cache/json").AsApiResponse<object>();
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse (System.IO.Stream)</returns>
         public async Task<ApiResponse<Stream>> GetExportSqliteAsync(bool? excludeSnapshots = null)
         {
-            var request = _apiClient.GetAsync("export/sqlite");
+            var request = _httpClient.GetAsync("export/sqlite");
             if (excludeSnapshots != null)
             {
                 request = request.WithArgument("exclude_snapshots", excludeSnapshots);

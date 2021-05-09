@@ -21,10 +21,8 @@ namespace NetFlagr
         Task<ApiResponse<Constraint>> CreateConstraintAsync(long flagID, long segmentID, CreateConstraintRequest body);
 
         /// <summary>
-        /// 
         /// </summary>
         /// <remarks>
-        /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="flagID">numeric ID of the flag</param>
@@ -34,10 +32,8 @@ namespace NetFlagr
         Task<ApiResponse<object>> DeleteConstraintAsync(long flagID, long segmentID, long constraintID);
 
         /// <summary>
-        /// 
         /// </summary>
         /// <remarks>
-        /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="flagID">numeric ID of the flag</param>
@@ -46,10 +42,8 @@ namespace NetFlagr
         Task<ApiResponse<IEnumerable<Constraint>>> FindConstraintsAsync(long flagID, long segmentID);
 
         /// <summary>
-        /// 
         /// </summary>
         /// <remarks>
-        /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="flagID">numeric ID of the flag</param>

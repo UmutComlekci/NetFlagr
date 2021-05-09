@@ -9,11 +9,11 @@ namespace NetFlagr
     /// </summary>
     internal class FlagApiService : IFlagApiService
     {
-        private readonly NetFlagrApiClient _apiClient;
+        private readonly NetFlagrHttpClient _httpClient;
 
-        public FlagApiService(NetFlagrApiClient apiClient)
+        public FlagApiService(NetFlagrHttpClient httpClient)
         {
-            _apiClient = apiClient;
+            _httpClient = httpClient;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace NetFlagr
                 throw new ApiException(400, "Missing required parameter 'body' when calling FlagApi->CreateFlag");
             }
 
-            return await _apiClient.PostAsync("flags").WithBody((x) => x.Model(body)).AsApiResponse<Flag>();
+            return await _httpClient.PostAsync("flags").WithBody((x) => x.Model(body)).AsApiResponse<Flag>();
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse</returns>
         public async Task<ApiResponse<object>> DeleteFlagAsync(long flagID)
         {
-            return await _apiClient.DeleteAsync($"flags/{flagID}").AsApiResponse<object>();
+            return await _httpClient.DeleteAsync($"flags/{flagID}").AsApiResponse<object>();
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse (List&lt;Flag&gt;)</returns>
         public async Task<ApiResponse<IEnumerable<Flag>>> FindFlagsAsync(long? limit = null, bool? enabled = null, string description = null, string tags = null, string descriptionLike = null, string key = null, long? offset = null, bool? preload = null, bool? deleted = null)
         {
-            var request = _apiClient.GetAsync("flags");
+            var request = _httpClient.GetAsync("flags");
             if (limit != null)
             {
                 request = request.WithArgument("limit", limit);
@@ -112,7 +112,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse (Flag)</returns>
         public async Task<ApiResponse<Flag>> GetFlagAsync(long flagID)
         {
-            return await _apiClient.GetAsync($"flags/{flagID}").AsApiResponse<Flag>();
+            return await _httpClient.GetAsync($"flags/{flagID}").AsApiResponse<Flag>();
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse (List&lt;string&gt;)</returns>
         public async Task<ApiResponse<IEnumerable<string>>> GetFlagEntityTypesAsync()
         {
-            return await _apiClient.GetAsync("flags/entity_types").AsApiResponse<IEnumerable<string>>();
+            return await _httpClient.GetAsync("flags/entity_types").AsApiResponse<IEnumerable<string>>();
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse (List&lt;FlagSnapshot&gt;)</returns>
         public async Task<ApiResponse<IEnumerable<FlagSnapshot>>> GetFlagSnapshotsAsync(long flagID)
         {
-            return await _apiClient.GetAsync($"flags/{flagID}/snapshots").AsApiResponse<IEnumerable<FlagSnapshot>>();
+            return await _httpClient.GetAsync($"flags/{flagID}/snapshots").AsApiResponse<IEnumerable<FlagSnapshot>>();
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace NetFlagr
                 throw new ApiException(400, "Missing required parameter 'body' when calling FlagApi->PutFlag");
             }
 
-            return await _apiClient.PutAsync($"flags/{flagID}").WithBody((x) => x.Model(body)).AsApiResponse<Flag>();
+            return await _httpClient.PutAsync($"flags/{flagID}").WithBody((x) => x.Model(body)).AsApiResponse<Flag>();
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse (Flag)</returns>
         public async Task<ApiResponse<Flag>> RestoreFlagAsync(long flagID)
         {
-            return await _apiClient.PutAsync($"flags/{flagID}/restore").AsApiResponse<Flag>();
+            return await _httpClient.PutAsync($"flags/{flagID}/restore").AsApiResponse<Flag>();
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace NetFlagr
                 throw new ApiException(400, "Missing required parameter 'body' when calling FlagApi->SetFlagEnabled");
             }
 
-            return await _apiClient.PutAsync($"flags/{flagID}/enabled").WithBody((x) => x.Model(body)).AsApiResponse<Flag>();
+            return await _httpClient.PutAsync($"flags/{flagID}/enabled").WithBody((x) => x.Model(body)).AsApiResponse<Flag>();
         }
     }
 }

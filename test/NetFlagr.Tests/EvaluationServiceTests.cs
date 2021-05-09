@@ -9,8 +9,7 @@ namespace NetFlagr.Tests
 		[Test]
 		public async Task PostEvaluationAsync()
 		{
-			var evaluationApiService = new EvaluationApiService(ApiClient);
-			var response = await evaluationApiService.PostEvaluationAsync(new EvalContext() 
+			var response = await ApiClient.EvaluationApiService.PostEvaluationAsync(new EvalContext() 
 			{
 				FlagKey = "demo_example"
 			});

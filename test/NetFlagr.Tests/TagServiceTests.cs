@@ -8,8 +8,7 @@ namespace NetFlagr.Tests
 		[Test]
 		public async Task FindAllTagsAsync()
 		{
-			var tagApiService = new TagApiService(ApiClient);
-			var response = await tagApiService.FindAllTagsAsync();
+			var response = await ApiClient.TagApiService.FindAllTagsAsync();
 			Assert.Pass();
 		}
 	}

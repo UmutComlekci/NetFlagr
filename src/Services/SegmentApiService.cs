@@ -9,11 +9,11 @@ namespace NetFlagr
     /// </summary>
     internal class SegmentApiService : ISegmentApiService
     {
-        private readonly NetFlagrApiClient _apiClient;
+        private readonly NetFlagrHttpClient _httpClient;
 
-        public SegmentApiService(NetFlagrApiClient apiClient)
+        public SegmentApiService(NetFlagrHttpClient httpClient)
         {
-            _apiClient = apiClient;
+            _httpClient = httpClient;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace NetFlagr
                 throw new ApiException(400, "Missing required parameter 'body' when calling SegmentApi->CreateSegment");
             }
 
-            return await _apiClient.PostAsync($"flags/{flagID}/segments").WithBody((x) => x.Model(body)).AsApiResponse<Segment>();
+            return await _httpClient.PostAsync($"flags/{flagID}/segments").WithBody((x) => x.Model(body)).AsApiResponse<Segment>();
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse</returns>
         public async Task<ApiResponse<object>> DeleteSegmentAsync(long flagID, long segmentID)
         {
-            return await _apiClient.DeleteAsync($"flags/{flagID}/segments/{segmentID}").AsApiResponse<object>();
+            return await _httpClient.DeleteAsync($"flags/{flagID}/segments/{segmentID}").AsApiResponse<object>();
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse (List&lt;Segment&gt;)</returns>
         public async Task<ApiResponse<IEnumerable<Segment>>> FindSegmentsAsync(long flagID)
         {
-            return await _apiClient.GetAsync($"flags/{flagID}/segments").AsApiResponse<IEnumerable<Segment>>();
+            return await _httpClient.GetAsync($"flags/{flagID}/segments").AsApiResponse<IEnumerable<Segment>>();
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace NetFlagr
                 throw new ApiException(400, "Missing required parameter 'body' when calling SegmentApi->PutSegment");
             }
 
-            return await _apiClient.PutAsync($"flags/{flagID}/segments/{segmentID}").WithBody((x) => x.Model(body)).AsApiResponse<Segment>();
+            return await _httpClient.PutAsync($"flags/{flagID}/segments/{segmentID}").WithBody((x) => x.Model(body)).AsApiResponse<Segment>();
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace NetFlagr
                 throw new ApiException(400, "Missing required parameter 'body' when calling SegmentApi->PutSegmentsReorder");
             }
 
-            return await _apiClient.PutAsync($"flags/{flagID}/segments/reorder").WithBody((x) => x.Model(body)).AsApiResponse<object>();
+            return await _httpClient.PutAsync($"flags/{flagID}/segments/reorder").WithBody((x) => x.Model(body)).AsApiResponse<object>();
         }
     }
 }

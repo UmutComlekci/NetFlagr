@@ -9,11 +9,11 @@ namespace NetFlagr
     /// </summary>
     internal class TagApiService : ITagApiService
     {
-        private readonly NetFlagrApiClient _apiClient;
+        private readonly NetFlagrHttpClient _httpClient;
 
-        public TagApiService(NetFlagrApiClient apiClient)
+        public TagApiService(NetFlagrHttpClient httpClient)
         {
-            _apiClient = apiClient;
+            _httpClient = httpClient;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace NetFlagr
                 throw new ApiException(400, "Missing required parameter 'body' when calling TagApi->CreateTag");
             }
 
-            return await _apiClient.PostAsync($"flags/{flagID}/tags").WithBody((x) => x.Model(body)).AsApiResponse<Tag>();
+            return await _httpClient.PostAsync($"flags/{flagID}/tags").WithBody((x) => x.Model(body)).AsApiResponse<Tag>();
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse</returns>
         public async Task<ApiResponse<object>> DeleteTagAsync(long flagID, long tagID)
         {
-            return await _apiClient.DeleteAsync($"flags/{flagID}/tags/{tagID}").AsApiResponse<object>();
+            return await _httpClient.DeleteAsync($"flags/{flagID}/tags/{tagID}").AsApiResponse<object>();
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse (List&lt;Tag&gt;)</returns>
         public async Task<ApiResponse<IEnumerable<Tag>>> FindAllTagsAsync(long? limit = null, long? offset = null, string valueLike = null)
         {
-            var request = _apiClient.GetAsync("tags");
+            var request = _httpClient.GetAsync("tags");
             if (limit != null)
             {
                 request = request.WithArgument("limit", limit);
@@ -78,7 +78,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse (List&lt;Tag&gt;)</returns>
         public async Task<ApiResponse<IEnumerable<Tag>>> FindTagsAsync(long flagID)
         {
-            return await _apiClient.GetAsync($"flags/{flagID}/tags").AsApiResponse<IEnumerable<Tag>>();
+            return await _httpClient.GetAsync($"flags/{flagID}/tags").AsApiResponse<IEnumerable<Tag>>();
         }
     }
 }

@@ -14,14 +14,14 @@ namespace NetFlagr.Tests
 		[SetUp]
 		public void Setup()
 		{
-			_apiClient = new NetFlagrApiClient(_httpClient, Options.Create<NetFlagrConfiguration>(new NetFlagrConfiguration()
+			_apiClient = new NetFlagrApiClient(new NetFlagrHttpClient(_httpClient, Options.Create<NetFlagrConfiguration>(new NetFlagrConfiguration()
 			{
 				BasePath = "https://try-flagr.herokuapp.com/api/v1/",
 				Timeout = 100000,
 				UserAgent = "",
 				Username = "",
 				Password = ""
-			}));
+			})));
 		}
 	}
 }

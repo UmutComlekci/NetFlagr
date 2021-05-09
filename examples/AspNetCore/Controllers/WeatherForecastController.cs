@@ -17,19 +17,19 @@ namespace AspNetCore.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly IFlagApiService _flagApiService;
+        private readonly NetFlagrApiClient _netFlagrService;
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(IFlagApiService flagApiService, ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(NetFlagrApiClient netFlagrService, ILogger<WeatherForecastController> logger)
         {
-            _flagApiService = flagApiService;
+            _netFlagrService = netFlagrService;
             _logger = logger;
         }
 
         [HttpGet]
         public async Task<IEnumerable<WeatherForecast>> Get()
         {
-            var flag = await _flagApiService.GetFlagAsync(0);
+            var flag = await _netFlagrService.FlagApiService.GetFlagAsync(0);
 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

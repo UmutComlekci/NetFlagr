@@ -8,11 +8,11 @@ namespace NetFlagr
     /// </summary>
     internal class HealthApiService : IHealthApiService
     {
-        private readonly NetFlagrApiClient _apiClient;
+        private readonly NetFlagrHttpClient _httpClient;
 
-        public HealthApiService(NetFlagrApiClient apiClient)
+        public HealthApiService(NetFlagrHttpClient httpClient)
         {
-            _apiClient = apiClient;
+            _httpClient = httpClient;
         }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse (Health)</returns>
         public async Task<ApiResponse<Health>> GetHealthAsync()
         {
-            return await _apiClient.GetAsync("health").AsApiResponse<Health>();
+            return await _httpClient.GetAsync("health").AsApiResponse<Health>();
         }
     }
 }

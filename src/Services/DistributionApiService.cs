@@ -9,16 +9,16 @@ namespace NetFlagr
     /// </summary>
     internal class DistributionApiService : IDistributionApiService
     {
-        private readonly NetFlagrApiClient _apiClient;
+        private readonly NetFlagrHttpClient _httpClient;
 
-        public DistributionApiService(NetFlagrApiClient apiClient)
+        public DistributionApiService(NetFlagrHttpClient httpClient)
         {
-            _apiClient = apiClient;
+            _httpClient = httpClient;
         }
 
         public async Task<ApiResponse<IEnumerable<Distribution>>> GetDistributionsAsync(long flagID, long segmentID)
         {
-            return await _apiClient.GetAsync($"flags/{flagID}/segments/{segmentID}/distributions").AsApiResponse<IEnumerable<Distribution>>();
+            return await _httpClient.GetAsync($"flags/{flagID}/segments/{segmentID}/distributions").AsApiResponse<IEnumerable<Distribution>>();
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace NetFlagr
                 throw new ApiException(400, "Missing required parameter 'body' when calling DistributionApi->PutDistributions");
             }
 
-            return await _apiClient.PutAsync($"flags/{flagID}/segments/{segmentID}/distributions")
+            return await _httpClient.PutAsync($"flags/{flagID}/segments/{segmentID}/distributions")
                 .WithBody((x) => x.Model(body))
                 .AsApiResponse<IEnumerable<Distribution>>();
         }

@@ -8,11 +8,11 @@ namespace NetFlagr
     /// </summary>
     internal class EvaluationApiService : IEvaluationApiService
     {
-        private readonly NetFlagrApiClient _apiClient;
+        private readonly NetFlagrHttpClient _httpClient;
 
-        public EvaluationApiService(NetFlagrApiClient apiClient)
+        public EvaluationApiService(NetFlagrHttpClient httpClient)
         {
-            _apiClient = apiClient;
+            _httpClient = httpClient;
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace NetFlagr
                 throw new ApiException(400, "Missing required parameter 'body' when calling EvaluationApi->PostEvaluationBatch");
             }
 
-            return await _apiClient.PostAsync("evaluation").WithBody((x) => x.Model(body)).AsApiResponse<EvalResult>();
+            return await _httpClient.PostAsync("evaluation").WithBody((x) => x.Model(body)).AsApiResponse<EvalResult>();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace NetFlagr
                 throw new ApiException(400, "Missing required parameter 'body' when calling EvaluationApi->PostEvaluationBatch");
             }
 
-            return await _apiClient.PostAsync("evaluation/batch").WithBody((x) => x.Model(body)).AsApiResponse<EvaluationBatchResponse>();
+            return await _httpClient.PostAsync("evaluation/batch").WithBody((x) => x.Model(body)).AsApiResponse<EvaluationBatchResponse>();
         }
     }
 }

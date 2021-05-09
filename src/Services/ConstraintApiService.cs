@@ -9,11 +9,11 @@ namespace NetFlagr
     /// </summary>
     internal class ConstraintApiService : IConstraintApiService
     {
-        private readonly NetFlagrApiClient _apiClient;
+        private readonly NetFlagrHttpClient _httpClient;
 
-        public ConstraintApiService(NetFlagrApiClient apiClient)
+        public ConstraintApiService(NetFlagrHttpClient httpClient)
         {
-            _apiClient = apiClient;
+            _httpClient = httpClient;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace NetFlagr
                 throw new ApiException(400, "Missing required parameter 'body' when calling ConstraintApi->CreateConstraint");
             }
 
-            return await _apiClient.PostAsync($"flags/{flagID}/segments/{segmentID}/constraints").AsApiResponse<Constraint>();
+            return await _httpClient.PostAsync($"flags/{flagID}/segments/{segmentID}/constraints").AsApiResponse<Constraint>();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse</returns>
         public async Task<ApiResponse<object>> DeleteConstraintAsync(long flagID, long segmentID, long constraintID)
         {
-            return await _apiClient.DeleteAsync($"flags/{flagID}/segments/{segmentID}/constraints/{constraintID}").AsApiResponse<object>();
+            return await _httpClient.DeleteAsync($"flags/{flagID}/segments/{segmentID}/constraints/{constraintID}").AsApiResponse<object>();
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse (List&lt;Constraint&gt;)</returns>
         public async Task<ApiResponse<IEnumerable<Constraint>>> FindConstraintsAsync(long flagID, long segmentID)
         {
-            return await _apiClient.GetAsync($"flags/{flagID}/segments/{segmentID}/constraints").AsApiResponse<IEnumerable<Constraint>>();
+            return await _httpClient.GetAsync($"flags/{flagID}/segments/{segmentID}/constraints").AsApiResponse<IEnumerable<Constraint>>();
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace NetFlagr
                 throw new ApiException(400, "Missing required parameter 'body' when calling ConstraintApi->PutConstraint");
             }
 
-            return await _apiClient.PutAsync($"flags/{flagID}/segments/{segmentID}/constraints/{constraintID}")
+            return await _httpClient.PutAsync($"flags/{flagID}/segments/{segmentID}/constraints/{constraintID}")
                 .WithBody((x) => x.Model(body))
                 .AsApiResponse<Constraint>();
         }

@@ -8,8 +8,7 @@ namespace NetFlagr.Tests
 		[Test]
 		public async Task FindFlagsAsync()
 		{
-			var flagApiService = new FlagApiService(ApiClient);
-			var response = await flagApiService.FindFlagsAsync(key: "superportal_portal_announcement");
+			var response = await ApiClient.FlagApiService.FindFlagsAsync(key: "announcement");
 			Assert.Pass();
 		}
 	}

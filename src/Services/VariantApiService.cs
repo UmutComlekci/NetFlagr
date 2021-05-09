@@ -9,11 +9,11 @@ namespace NetFlagr
     /// </summary>
     internal class VariantApiService : IVariantApiService
     {
-        private readonly NetFlagrApiClient _apiClient;
+        private readonly NetFlagrHttpClient _httpClient;
 
-        public VariantApiService(NetFlagrApiClient apiClient)
+        public VariantApiService(NetFlagrHttpClient httpClient)
         {
-            _apiClient = apiClient;
+            _httpClient = httpClient;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace NetFlagr
                 throw new ApiException(400, "Missing required parameter 'body' when calling VariantApi->CreateVariant");
             }
 
-            return await _apiClient.PostAsync($"flags/{flagID}/variants").WithBody((x) => x.Model(body)).AsApiResponse<Variant>();
+            return await _httpClient.PostAsync($"flags/{flagID}/variants").WithBody((x) => x.Model(body)).AsApiResponse<Variant>();
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse</returns>
         public async Task<ApiResponse<object>> DeleteVariantAsync(long flagID, long variantID)
         {
-            return await _apiClient.DeleteAsync($"flags/{flagID}/variants/{variantID}").AsApiResponse<object>();
+            return await _httpClient.DeleteAsync($"flags/{flagID}/variants/{variantID}").AsApiResponse<object>();
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace NetFlagr
         /// <returns>Task of ApiResponse (List&lt;Variant&gt;)</returns>
         public async Task<ApiResponse<IEnumerable<Variant>>> FindVariantsAsync(long flagID)
         {
-            return await _apiClient.GetAsync($"flags/{flagID}/variants").AsApiResponse<IEnumerable<Variant>>();
+            return await _httpClient.GetAsync($"flags/{flagID}/variants").AsApiResponse<IEnumerable<Variant>>();
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace NetFlagr
                 throw new ApiException(400, "Missing required parameter 'body' when calling VariantApi->PutVariant");
             }
 
-            return await _apiClient.PutAsync($"flags/{flagID}/variants/{variantID}").WithBody((x) => x.Model(body)).AsApiResponse<Variant>();
+            return await _httpClient.PutAsync($"flags/{flagID}/variants/{variantID}").WithBody((x) => x.Model(body)).AsApiResponse<Variant>();
         }
     }
 }
